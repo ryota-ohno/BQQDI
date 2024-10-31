@@ -83,6 +83,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 file_name += '_{}={}'.format(key,val)
             file_name += '.log'
             file_name0 = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type, isTest=isTest)# ジョブの実行
+            time.sleep(1)
             # 新しい行を作成
             df_E.at[index, 'machine_type'] = machine_type
             df_E.at[index, 'status'] = 'InProgress'
@@ -108,6 +109,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 machine_type = 1 if machine2IsFull else 2
                 if not(alreadyCalculated):
                     file_name = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type,isTest=isTest)
+                    time.sleep(1)
                     df_newline = pd.Series({**params_dict,'E':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                     df_E=df_E.append(df_newline,ignore_index=True)
                     df_E.to_csv(auto_csv,index=False)
